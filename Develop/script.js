@@ -23,8 +23,8 @@ const letters = (() => {
 })();
 
 // seperate letters into distinct groups to match criteria
-upperLetters = letters.slice(0, 26)
-lowerLetters = letters.slice(26)
+const upperLetters = letters.slice(0, 26)
+const lowerLetters = letters.slice(26)
 
 function getNumbers() {
   
@@ -35,21 +35,21 @@ function getNumbers() {
   return numbers
 }
 
-numbers = getNumbers()
+const numbers = getNumbers()
 
 // array of all special characters
 const specialCharacters = "`!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?~";
 
+// add foreign key for all character values
+characterKey = {
+  upper: upperLetters,
+  lower: lowerLetters,
+  numberic: numbers,
+  special: specialCharacters
+}
 
-// queryKey = {
-//   upper: upperLetters,
-//   lower: lowerLetters,
-//   numberic: 
-//   special:
-// }
 
-
-// recursively ask the user for length of password
+// ask the user for length of password
 function askLengthAgain(question = lengthQuestions.qLength) {
   // ask for length first time with default question
   let length = prompt(question);
@@ -71,12 +71,17 @@ function askLengthAgain(question = lengthQuestions.qLength) {
 
 // iterates through questions list to ask for all prompt values
 // and returns an array of answers
-function askCharacterQuestions() {
-  let answerLog = []
+function askCharacterQuestions(characterQuestions) {
+  let characterBool = []
   for (let key in characterQuestions) {
     key = confirm(characterQuestions[key]);
-    answerLog.push(key);
-  }
+    characterBool.push(key);
+  }  
+  const characterType = ['upper', 'lower', 'numberic', 'special'];
+// generate dict with question and answers
+  let answerLog = {};
+  characterType.forEach((characterType, i) => answerLog[characterType] = characterBool[i]);
+  console.log(answerLog);
   return answerLog
 }
 
@@ -91,10 +96,16 @@ function criteria(quaryArray) {
 
 
 // uses answerLog from askCharacterQuestions and length to create password
-function conditionalPassword(length, queryArray, allLetters, allSpecialCharacters) {
-  randomNumber = Math.floor(Math.random() * arr)
-  
-  console.log(randomNumber)
+function conditionalPassword(length, queryArray, characterKey) {
+  // randomNumber = Math.floor(Math.random() * )
+  let mutableCharacterKey = {}
+
+  Object.assign(mutableCharacterKey, characterKey)
+
+  // console.log(mutableCharacterKey, characterKey)
+
+
+  // console.log(randomNumber)
 }
 
 
@@ -107,8 +118,10 @@ function generatePassword() {
   // answerLog = askCharacterQuestions()
 
   // use conditionals 
-
+  // conditionalPassword(3, 4, characterKey)
   // console.log(answerLog)
+
+  askCharacterQuestions(characterQuestions)
 }
 
 // Assignment Code
