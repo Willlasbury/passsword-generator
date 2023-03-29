@@ -12,6 +12,43 @@ let characterQuestions = {
   qNumeric: "Do you want to include numberic characters? (yes/no)",
   qSpecial: "Do you want to include special characters? (yes/no)",
 };
+
+// pulled from https://gist.github.com/bendc/1e6af8f2d8027f2965da
+// supplies all upper and lower case letters
+// I hope there are no ethical concerns when the alternative was just
+// typing all letters 
+const letters = (() => {
+  const caps = [...Array(26)].map((val, i) => String.fromCharCode(i + 65));
+  return caps.concat(caps.map(letter => letter.toLowerCase()));
+})();
+
+// seperate letters into distinct groups to match criteria
+upperLetters = letters.slice(0, 26)
+lowerLetters = letters.slice(26)
+
+function getNumbers() {
+  
+  let numbers = []
+  for (let i = 0; i < 10; i++) {
+    numbers.push(i)
+  }
+  return numbers
+}
+
+numbers = getNumbers()
+
+// array of all special characters
+const specialCharacters = "`!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?~";
+
+
+// queryKey = {
+//   upper: upperLetters,
+//   lower: lowerLetters,
+//   numberic: 
+//   special:
+// }
+
+
 // recursively ask the user for length of password
 function askLengthAgain(question = lengthQuestions.qLength) {
   // ask for length first time with default question
@@ -43,15 +80,35 @@ function askCharacterQuestions() {
   return answerLog
 }
 
+// Do something with criteria
+// upper, lower, numberic, special
+function criteria(quaryArray) {
 
 
-function passworkCriteria() {}
+  
+  return quaryKey
+}
+
+
+// uses answerLog from askCharacterQuestions and length to create password
+function conditionalPassword(length, queryArray, allLetters, allSpecialCharacters) {
+  randomNumber = Math.floor(Math.random() * arr)
+  
+  console.log(randomNumber)
+}
+
+
 
 // final function to generate password
 function generatePassword() {
+
   // length = askLengthAgain();
-  answerLog = askCharacterQuestions()
-  console.log(answerLog)
+
+  // answerLog = askCharacterQuestions()
+
+  // use conditionals 
+
+  // console.log(answerLog)
 }
 
 // Assignment Code
