@@ -3,7 +3,8 @@ let lengthQuestions = {
   qLength:
     "How long do you want your password to be?\n(must be between 8 and 128 characters)",
   qIdiot: "Sorry your answer must be a NUMBER?",
-  qNotFollowDirections: "Sorry your answer must be between 8 and 128 characters?",
+  qNotFollowDirections:
+    "Sorry your answer must be between 8 and 128 characters?",
 };
 
 let characterQuestions = {
@@ -12,42 +13,6 @@ let characterQuestions = {
   qNumeric: "Do you want to include numberic characters? (yes/no)",
   qSpecial: "Do you want to include special characters? (yes/no)",
 };
-
-// pulled from https://gist.github.com/bendc/1e6af8f2d8027f2965da
-// supplies all upper and lower case letters
-// I hope there are no ethical concerns when the alternative was just
-// typing all letters 
-const letters = (() => {
-  const caps = [...Array(26)].map((val, i) => String.fromCharCode(i + 65));
-  return caps.concat(caps.map(letter => letter.toLowerCase()));
-})();
-
-// seperate letters into distinct groups to match criteria
-const upperLetters = letters.slice(0, 26)
-const lowerLetters = letters.slice(26)
-
-function getNumbers() {
-  
-  let numbers = []
-  for (let i = 0; i < 10; i++) {
-    numbers.push(i)
-  }
-  return numbers
-}
-
-const numbers = getNumbers()
-
-// array of all special characters
-const specialCharacters = "`!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?~";
-
-// add foreign key for all character values
-characterKey = {
-  upper: upperLetters,
-  lower: lowerLetters,
-  numberic: numbers,
-  special: specialCharacters
-}
-
 
 // ask the user for length of password
 function askLengthAgain(question = lengthQuestions.qLength) {
@@ -71,57 +36,89 @@ function askLengthAgain(question = lengthQuestions.qLength) {
 
 // iterates through questions list to ask for all prompt values
 // and returns an array of answers
-function askCharacterQuestions(characterQuestions) {
-  let characterBool = []
-  for (let key in characterQuestions) {
-    key = confirm(characterQuestions[key]);
+function askCharacterQuestions(questions = characterQuestions) {
+  let characterBool = [];
+  for (let key in questions) {
+    key = confirm(questions[key]);
     characterBool.push(key);
-  }  
-  const characterType = ['upper', 'lower', 'numberic', 'special'];
-// generate dict with question and answers
-  let answerLog = {};
-  characterType.forEach((characterType, i) => answerLog[characterType] = characterBool[i]);
-  console.log(answerLog);
-  return answerLog
+  }
+  if (characterBool.includes(true)){
+    console.log(characterBool)
+    return characterBool;
+  } else {alert("You must select at least one value")
+    // characterBool = []
+    askCharacterQuestions()}
 }
 
-// Do something with criteria
+// CREATE VARIOUS ARRAYS AND DICTS
+
+// pulled from https://gist.github.com/bendc/1e6af8f2d8027f2965da
+// supplies all upper and lower case letters
+// I hope there are no ethical concerns when the alternative was just
+// typing all letters
+const letters = (() => {
+  const caps = [...Array(26)].map((val, i) => String.fromCharCode(i + 65));
+  return caps.concat(caps.map((letter) => letter.toLowerCase()));
+})();
+
+// seperate letters into distinct groups to match criteria
+const upperLetters = letters.slice(0, 26);
+const lowerLetters = letters.slice(26);
+
+// create an array of all single digit numbers
+function getNumbers() {
+  let numbers = [];
+  for (let i = 0; i < 10; i++) {
+    numbers.push(i);
+  }
+  return numbers;
+}
+
+// go ahead and save an array of numbers
+const numbers = getNumbers();
+
+// array of all special characters
+const special = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+const specialCharacters = special.split('')
+
+// combine all character values
+characterKey = [upperLetters, lowerLetters, numbers, specialCharacters];
+
+
+
+// console.log(characterKey[0])
+// Compare the length, characterkey, and answerLog to create a dict for password criteria
 // upper, lower, numberic, special
-function criteria(quaryArray) {
+// function criteria(characterKey, length, answerLog) {
+function compare(key, log) {
+  storage = [];
+  console.log(key, log)
+  for (let i = 0; i < log.length; i++)
+    if (log[i] == true) {
+      storage.push(key[i]);
+    }
 
-
-  
-  return quaryKey
+  return storage.flat();
 }
-
-
-// uses answerLog from askCharacterQuestions and length to create password
-function conditionalPassword(length, queryArray, characterKey) {
-  // randomNumber = Math.floor(Math.random() * )
-  let mutableCharacterKey = {}
-
-  Object.assign(mutableCharacterKey, characterKey)
-
-  // console.log(mutableCharacterKey, characterKey)
-
-
-  // console.log(randomNumber)
-}
-
-
 
 // final function to generate password
 function generatePassword() {
-
-  // length = askLengthAgain();
-
-  // answerLog = askCharacterQuestions()
-
-  // use conditionals 
-  // conditionalPassword(3, 4, characterKey)
-  // console.log(answerLog)
-
-  askCharacterQuestions(characterQuestions)
+  // let length = askLengthAgain();
+   let length = 12
+  // console.log(length)
+  let answerLog = askCharacterQuestions();
+  console.log(answerLog)
+  
+  let usedKey = compare(characterKey, answerLog);
+  // console.log(usedKey)
+  
+  let password = [];
+  
+  for (let i=0; i<length; i++){
+    password[i] = (usedKey[Math.floor(Math.random() * usedKey.length)]);
+  }
+  // console.log(password.join(''))
+  return password.join('');
 }
 
 // Assignment Code
