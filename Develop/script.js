@@ -7,12 +7,12 @@ let lengthQuestions = {
     "Sorry your answer must be between 8 and 128 characters?",
 };
 
-let characterQuestions = {
-  qUpper: "Do you want to include upper case characters? (yes/no)",
-  qLower: "Do you want to include lower case characters? (yes/no)",
-  qNumeric: "Do you want to include numberic characters? (yes/no)",
-  qSpecial: "Do you want to include special characters? (yes/no)",
-};
+let characterQuestions = [
+  "Do you want to include upper case characters? (yes/no)",
+  "Do you want to include lower case characters? (yes/no)",
+  "Do you want to include numberic characters? (yes/no)",
+  "Do you want to include special characters? (yes/no)",
+];
 
 // ask the user for length of password
 function askLengthAgain(question = lengthQuestions.qLength) {
@@ -38,16 +38,17 @@ function askLengthAgain(question = lengthQuestions.qLength) {
 // and returns an array of answers
 function askCharacterQuestions(questions = characterQuestions) {
   let characterBool = [];
-  for (let key in questions) {
-    key = confirm(questions[key]);
-    characterBool.push(key);
+  console.log(characterBool)
+  for (let i = 0; i<questions.length;i++) {
+    let answer = confirm(questions[i]);
+    characterBool.push(answer);
   }
   if (characterBool.includes(true)){
     console.log(characterBool)
     return characterBool;
   } else {alert("You must select at least one value")
-    // characterBool = []
-    askCharacterQuestions()}
+  console.log(characterBool)
+    return askCharacterQuestions()}
 }
 
 // CREATE VARIOUS ARRAYS AND DICTS
