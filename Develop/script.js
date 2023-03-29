@@ -1,63 +1,57 @@
 //  user questions
-let questionsToAsk = {
+let lengthQuestions = {
   qLength:
     "How long do you want your password to be?\n(must be between 8 and 128 characters)",
   qIdiot: "Sorry your answer must be a NUMBER?",
   qNotFollowDirections: "Sorry your answer must be between 8 and 128 characters?",
+};
+
+let characterQuestions = {
   qUpper: "Do you want to include upper case characters? (yes/no)",
   qLower: "Do you want to include lower case characters? (yes/no)",
   qNumeric: "Do you want to include numberic characters? (yes/no)",
   qSpecial: "Do you want to include special characters? (yes/no)",
 };
-
-
 // recursively ask the user for length of password
-function askLengthAgain(question = questionsToAsk.qLength) {
+function askLengthAgain(question = lengthQuestions.qLength) {
   // ask for length first time with default question
-    let length = prompt(question);
+  let length = prompt(question);
   // check if input is a number and ask new question if it isn't
-    if (isNaN(length)) {
-      askLengthAgain(questionsToAsk.qIdiot);
-    } 
-    // convert variable length from string to number and check that the
-    // value fits in our acceptable range
-    else {
-    length = Number(length);
-      if (length >=8 && length <= 128){
-      return length  }
-      else {
-        askLengthAgain(questionsToAsk.qNotFollowDirections)
-      }
+  if (isNaN(length)) {
+    askLengthAgain(lengthQuestions.qIdiot);
   }
-} 
-// }
-
-// ask for password length
-// function askLength() {
-//   let length = prompt(questionsToAsk.qLength);
-
-//   // // check if input is a number
-//   if (isNaN(length)) {
-//     askLengthAgain(questionsToAsk.qIdiot);
-//   } else {
-//     length = Number(length);
-//     console.log(typeof length, length);
-//   }
-// }
+  // convert variable length from string to number and check that the
+  // value fits in our acceptable range
+  else {
+    length = Number(length);
+    if (length >= 8 && length <= 128) {
+      return length;
+    } else {
+      askLengthAgain(lengthQuestions.qNotFollowDirections);
+    }
+  }
+}
 
 // iterates through questions list to ask for all prompt values
-// function askQuestions() {
-//   for (let key in questionsToAsk) {
-//     key = confirm(questionsToAsk[key]);
-//     console.log(key);
-//   }
-// }
+// and returns an array of answers
+function askCharacterQuestions() {
+  let answerLog = []
+  for (let key in characterQuestions) {
+    key = confirm(characterQuestions[key]);
+    answerLog.push(key);
+  }
+  return answerLog
+}
+
+
 
 function passworkCriteria() {}
 
 // final function to generate password
 function generatePassword() {
-  askLengthAgain();
+  // length = askLengthAgain();
+  answerLog = askCharacterQuestions()
+  console.log(answerLog)
 }
 
 // Assignment Code
