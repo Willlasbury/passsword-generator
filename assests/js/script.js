@@ -2,8 +2,8 @@
 let lengthQuestions = {
   qLength:
     "How long do you want your password to be?\n(must be between 8 and 128 characters)",
-  qIdiot: "Sorry your answer must be a NUMBER?",
-  qNotFollowDirections:
+  qNaN: "Sorry your answer must be a NUMBER?",
+  qWrongLength:
     "Sorry your answer must be between 8 and 128 characters?",
 };
 
@@ -20,7 +20,7 @@ function askLengthAgain(question = lengthQuestions.qLength) {
   let length = prompt(question);
   // check if input is a number and ask new question if it isn't
   if (isNaN(length)) {
-    askLengthAgain(lengthQuestions.qIdiot);
+    askLengthAgain(lengthQuestions.qNaN);
   }
   // convert variable length from string to number and check that the
   // value fits in our acceptable range
@@ -29,7 +29,7 @@ function askLengthAgain(question = lengthQuestions.qLength) {
     if (length >= 8 && length <= 128) {
       return length;
     } else {
-      return askLengthAgain(lengthQuestions.qNotFollowDirections);
+      return askLengthAgain(lengthQuestions.qWrongLength);
     }
   }
 }
