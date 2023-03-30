@@ -18,3 +18,4 @@ opted for.
 
 ![image of password generating page](./assests/images/password-generator.png)
 
+https://willlasbury.github.io/passsword-generator/

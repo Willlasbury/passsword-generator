@@ -46,7 +46,7 @@ function askCharacterQuestions(questions = characterQuestions) {
     return characterBool;
   } else {
     alert("You must select at least one value");
-    return askCharacterQuestions();
+     return askCharacterQuestions();
   }
 }
 
