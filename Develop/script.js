@@ -104,22 +104,19 @@ function compare(key, log) {
 
 // final function to generate password
 function generatePassword() {
-  // let length = askLengthAgain();
-   let length = 12
-  // console.log(length)
+  let length = askLengthAgain();
+
   let answerLog = askCharacterQuestions();
-  console.log(answerLog)
   
   let usedKey = compare(characterKey, answerLog);
-  // console.log(usedKey)
   
   let password = [];
   
   for (let i=0; i<length; i++){
     password[i] = (usedKey[Math.floor(Math.random() * usedKey.length)]);
   }
-  // console.log(password.join(''))
-  return password.join('');
+  password = password.join('')
+  return password;
 }
 
 // Assignment Code
