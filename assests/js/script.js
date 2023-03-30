@@ -29,7 +29,7 @@ function askLengthAgain(question = lengthQuestions.qLength) {
     if (length >= 8 && length <= 128) {
       return length;
     } else {
-      askLengthAgain(lengthQuestions.qNotFollowDirections);
+      return askLengthAgain(lengthQuestions.qNotFollowDirections);
     }
   }
 }
@@ -38,17 +38,16 @@ function askLengthAgain(question = lengthQuestions.qLength) {
 // and returns an array of answers
 function askCharacterQuestions(questions = characterQuestions) {
   let characterBool = [];
-  console.log(characterBool)
-  for (let i = 0; i<questions.length;i++) {
+  for (let i = 0; i < questions.length; i++) {
     let answer = confirm(questions[i]);
     characterBool.push(answer);
   }
-  if (characterBool.includes(true)){
-    console.log(characterBool)
+  if (characterBool.includes(true)) {
     return characterBool;
-  } else {alert("You must select at least one value")
-  console.log(characterBool)
-    return askCharacterQuestions()}
+  } else {
+    alert("You must select at least one value");
+    return askCharacterQuestions();
+  }
 }
 
 // CREATE VARIOUS ARRAYS AND DICTS
@@ -80,17 +79,14 @@ const numbers = getNumbers();
 
 // array of all special characters
 const special = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
-const specialCharacters = special.split('')
+const specialCharacters = special.split("");
 
 // combine all character values
 characterKey = [upperLetters, lowerLetters, numbers, specialCharacters];
 
-
-
 // Compare the length, characterkey, and answerLog to create a dict for password criteria
 function compare(key, log) {
   storage = [];
-  console.log(key, log)
   for (let i = 0; i < log.length; i++)
     if (log[i] == true) {
       storage.push(key[i]);
@@ -104,15 +100,15 @@ function generatePassword() {
   let length = askLengthAgain();
 
   let answerLog = askCharacterQuestions();
-  
+
   let usedKey = compare(characterKey, answerLog);
-  
+
   let password = [];
-  
-  for (let i=0; i<length; i++){
-    password[i] = (usedKey[Math.floor(Math.random() * usedKey.length)]);
+
+  for (let i = 0; i < length; i++) {
+    password[i] = usedKey[Math.floor(Math.random() * usedKey.length)];
   }
-  password = password.join('')
+  password = password.join("");
   return password;
 }
 
