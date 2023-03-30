@@ -75,7 +75,7 @@ function getNumbers() {
   return numbers;
 }
 
-// go ahead and save an array of numbers
+// save an array of numbers
 const numbers = getNumbers();
 
 // array of all special characters
@@ -87,10 +87,7 @@ characterKey = [upperLetters, lowerLetters, numbers, specialCharacters];
 
 
 
-// console.log(characterKey[0])
 // Compare the length, characterkey, and answerLog to create a dict for password criteria
-// upper, lower, numberic, special
-// function criteria(characterKey, length, answerLog) {
 function compare(key, log) {
   storage = [];
   console.log(key, log)
