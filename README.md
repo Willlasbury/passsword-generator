@@ -16,5 +16,5 @@ user will then be provided a randomly generated string of
 their desired length, using only the characters that they 
 opted for.
 
-![image of password generating page](./Develop/assests/images/password-generator.png)
+![image of password generating page](./assests/images/password-generator.png)
 
